@@ -58,7 +58,7 @@ impl Desk {
             None, //52
             None, //53
             None, //54
-            None, //55
+            Some(Figura {color: Color::Black, figura: FiguraType::Pawn}), //55
             None, //56
             None, //57
             Some(Figura {color: Color::Black, figura: FiguraType::King}), //58

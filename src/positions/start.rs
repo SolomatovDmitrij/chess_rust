@@ -42,10 +42,11 @@ impl Desk {
                  ]
             , additional_figures: vec![]}
     }
-    
+/*    
     fn get_cells(&self) -> &[Option<Figura>] {
         &self.cells
     }
+*/
 
 }
 
@@ -57,7 +58,7 @@ mod tests {
     fn test_start_desk() {
         
         let start_desk = Desk::start_position();
-        let cells = start_desk.get_cells();
+        let cells = start_desk.cells;
 
         //должно быть 64 клетки
         assert_eq!(cells.len(), 64);
