@@ -121,8 +121,10 @@ impl<'a> Position<'a> {
             Color::White => &self.black_dependencies.dependencies,
             Color::Black => &self.white_dependencies.dependencies,
         };
-        println!("depend: {:?}", enemy_depend);
-        true
+        match enemy_depend.iter().find(|&(Reference{ index_field: ind, depends_from })| ind == &king_index ) {
+            None => false,
+            _ => true
+        }
     }
 }
 
@@ -158,6 +160,10 @@ mod tests {
         let position2 = position1.make_move(Move {from_cell: 33, to_cell: 42,
             figura: position1.get_figura(33).unwrap()});
         assert_eq!(position2.get_turn_color(), Color::Black);
+    }
+    #[test]
+    fn test_make_move() {
+        assert!(false)
     }
     #[test]
     fn test_is_shah() {
