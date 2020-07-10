@@ -40,7 +40,7 @@ impl Desk {
             Some(Figura {color: Color::White, figura: FiguraType::Pawn}), //34
             None, //35
             None, //36
-            None, //37
+            Some(Figura {color: Color::Black, figura: FiguraType::Rook}), //37
             None, //38
             None, //39
             None, //40
@@ -68,7 +68,7 @@ impl Desk {
             None, //62
             None  //63
                 ]
-                , additional_figures: vec![]}
+                , additional_figures: vec![], color_move: Color::White}
     }
 }
 

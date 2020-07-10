@@ -21,7 +21,7 @@ impl<'a> Position<'a> {
            if let Some(fig) = desk.get_figura(index) {
                let possible_move = fig.get_possible_move2(index);
                for mut move1 in possible_move {
-                   println!("fig: {:?}, index: {:?}, move1: {:?}", fig, index, move1);
+                   //println!("fig: {:?}, index: {:?}, move1: {:?}", fig, index, move1);
                    //для проверки ести ли препятствия на пути фигур
                    if fig.is_power() {
                        if let Some(index_first_fig) = move1.iter().position(|&x| desk.get_figura(x) != None) {
@@ -33,137 +33,19 @@ impl<'a> Position<'a> {
                                */
                        }
                        
-println!("move1: {:?}, index: {:?}", move1, index);
+//println!("move1: {:?}, index: {:?}", move1, index);
                    match fig.color {
                        Color::White => 
                            move1.iter().map(|&x| white_dep.insert(&mut Reference::new(x, index))).collect(),
                        Color::Black => 
                            move1.iter().map(|&x| black_dep.insert(&mut Reference::new(x, index))).collect(),
                    }
-                   println!("white_dep: {:?}", white_dep);
-                   println!("black_dep: {:?}", black_dep);
+                   //println!("white_dep: {:?}", white_dep);
+                   //println!("black_dep: {:?}", black_dep);
                }
 
            }
        }
-               /*
-                      match desk.get_figura(index) {
-               //white pawn
-               Some(Figura {color: Color::White, figura: FiguraType::Pawn}) => {
-                   //проверим ошибку 
-                   if Desk::in_gorizont(index, 7) { 
-                       panic!("белая пешка не может находится на последней горизонтале");
-                   }
-                   white_dep.insert(&mut Reference::new(index+8, index));
-                   //если пешка на второй линии и нет преграды тогда она может ходить на 2 клетки
-                   if Desk::in_gorizont(index, 1) && desk.get_figura(index+8).is_none() {
-                       white_dep.insert(&mut Reference::new(index+16, index));
-                   } 
-               },
-               //Black pawn
-               Some(Figura {color: Color::Black, figura: FiguraType::Pawn}) => {
-                   //проверим ошибку 
-                   if Desk::in_gorizont(index, 0) { 
-                       panic!("черная пешка не может находится на первой горизонтале");
-                   }
-                   black_dep.insert(&mut Reference::new(index-8, index));
-                   //если пешка на второй линии и нет преграды тогда она может ходить на 2 клетки
-                   if Desk::in_gorizont(index, 6) && desk.get_figura(index-8).is_none() {
-                       black_dep.insert(&mut Reference::new(index-16, index));
-                   } 
-               },
-               //King any color
-               Some(Figura {color, figura: FiguraType::King}) => {
-                   let mut dep = &mut black_dep;
-                   if *color == Color::White {
-                       dep = &mut white_dep;
-                   }
-
-                   //если это не 0 вертикаль то король может сходить на лево
-                   if !Desk::in_vertical(index, 0) {
-                       dep.insert(&mut Reference::new(index-1,index));
-
-                       if !Desk::in_gorizont(index, 0) {
-                           dep.insert(&mut Reference::new(index-9,index));
-                       }
-                       if !Desk::in_gorizont(index, 7) {
-                           dep.insert(&mut Reference::new(index+7,index));
-                       }
-                   }
-                   if !Desk::in_vertical(index, 7) {
-                       dep.insert(&mut Reference::new(index+1,index));
-
-                       if !Desk::in_gorizont(index, 0) {
-                           dep.insert(&mut Reference::new(index-7,index));
-                       }
-                       if !Desk::in_gorizont(index, 7) {
-                           dep.insert(&mut Reference::new(index+9,index));
-                       }
-                   }
-                   if !Desk::in_gorizont(index, 0) {
-                       dep.insert(&mut Reference::new(index-8,index));
-                   }
-                   if !Desk::in_gorizont(index, 7) {
-                       dep.insert(&mut Reference::new(index+8,index));
-                   }
-               },
-               //Knight any color
-               Some(Figura {color, figura: FiguraType::Knight}) => {
-                   let mut dep = &mut black_dep;
-                   if *color == Color::White {
-                       dep = &mut white_dep;
-                   }
-
-                   //если это не 0 вертикаль то конь  может сходить на лево
-                   if !Desk::in_vertical(index, 0) {
-                       if !Desk::in_gorizont(index, 0) && !Desk::in_gorizont(index, 1) {
-                           dep.insert(&mut Reference::new(index-9,index));
-                       }
-                       if !Desk::in_gorizont(index, 7) {
-                           dep.insert(&mut Reference::new(index+7,index));
-                       }
-                   }
-                   if !Desk::in_vertical(index, 7) {
-                       dep.insert(&mut Reference::new(index+1,index));
-
-                       if !Desk::in_gorizont(index, 0) {
-                           dep.insert(&mut Reference::new(index-7,index));
-                       }
-                       if !Desk::in_gorizont(index, 7) {
-                           dep.insert(&mut Reference::new(index+9,index));
-                       }
-                   }
-                   if !Desk::in_gorizont(index, 0) {
-                       dep.insert(&mut Reference::new(index-8,index));
-                   }
-                   if !Desk::in_gorizont(index, 7) {
-                       dep.insert(&mut Reference::new(index+8,index));
-                   }
-               },
-
-               _ => {} //continue
-           
-
-           }*/
-       
-       /*
-       println!("white-dep: {:?}", white_dep);
-       println!("black-dep: {:?}", black_dep);
-       */
-       /*
-       let depend = (0..64).filter_map(|x| {
-           match desk.get_figura(x) {
-               Some(f) => Some(x, f),
-               None => None
-           }
-       }).map(|fig|{
-               match fig {
-                   Some()
-                       
-               }
-           })
-       })
-       */
        Position { previous: Previous::Desk(desk)
                 , moves: fictive_move
                 , white_dependencies: white_dep
@@ -177,11 +59,6 @@ println!("move1: {:?}, index: {:?}", move1, index);
                  , black_dependencies: Dependencies::new()
         }
     }
-/*
-    pub fn get_dependence(&self, index_field: u8) -> Option<&Reference> {
-       self.dependencies.iter().find(|&x| x.index_field == index_field)
-    }
-  */  
     pub fn get_figura(&self, index_field: u8) -> Option<&'a Figura> {
         //проверяем есть ли наше поле в ходе откуда пошли, тогда сейчас это пустое поле
         if self.moves.from_cell == index_field {
@@ -204,5 +81,91 @@ println!("move1: {:?}, index: {:?}", move1, index);
     fn value(&self) -> f32 {
         0.0
     }
+
+    fn get_king(&self, color_arg: Color) -> u8 {
+        (0..64).into_iter().find(|&x| match self.get_figura(x) {
+            Some(Figura {color: color_match, figura: FiguraType::King}) => color_match == &color_arg,
+            _ => false
+        }).unwrap()
+        
+    }
+
+    fn get_all_posible_moves(&self) -> Vec<Move<'a>> {
+        let dep_ref = match self.get_turn_color() {
+            Color::White => &self.white_dependencies,
+            Color::Black => &self.black_dependencies,
+        };
+        println!("dependencies: {:?}", dep_ref.dependencies);
+        for ref1 in dep_ref.dependencies.iter() {
+            println!("ref: {:?}", ref1);
+            let move_vec: Vec<Move> = ref1.depends_from.iter().map(|&ind| Move { from_cell: ref1.index_field, 
+                to_cell: ind, figura: self.get_figura(ind).unwrap() }).collect();
+            println!("move: {:?}", move_vec);
+        }
+        return vec![]
+    }
+
+    fn get_turn_color(&self) -> Color {
+        match self.previous {
+            Previous::Position(position_ref) => !position_ref.get_turn_color(),
+            Previous::Desk(desk_ref) => desk_ref.color_move
+        }
+    }
+
+    fn is_shah(&self) -> bool {
+        //find king
+        let king_color = self.get_turn_color();
+        let king_index = self.get_king(king_color);
+        //в зависимостях найдем ссылки на это поле
+        let enemy_depend = match king_color {
+            Color::White => &self.black_dependencies.dependencies,
+            Color::Black => &self.white_dependencies.dependencies,
+        };
+        println!("depend: {:?}", enemy_depend);
+        true
+    }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+    
+    #[test]
+    fn test_get_king() {
+        let desk1 = Desk::start_position();
+        let position1 = Position::new(&desk1, desk1.get_figura(0).unwrap());
+        assert_eq!(position1.get_king(Color::White), 4);
+        assert_eq!(position1.get_king(Color::Black), 60);
+    }
+
+    #[test]
+    fn test_get_all_moves() {
+        let desk1 = Desk::position1();
+        let position1 = Position::new(&desk1, desk1.get_figura(33).unwrap());
+        let all_possible_move = position1.get_all_posible_moves();
+        //так как пешка на 34 связана ладьей, то она не может ходить
+        assert!(!all_possible_move.contains( &Move {from_cell: 34, to_cell: 42, 
+            figura: desk1.get_figura(34).unwrap()} ));
+        //а вот белый король может пойти на поле 42
+        assert!(all_possible_move.contains( &Move { from_cell: 33, to_cell: 42, 
+            figura: desk1.get_figura(33).unwrap() } ));
+    }
+    #[test]
+    fn test_get_turn_color() {
+        let desk1 = Desk::position1();
+        let position1 = Position::new(&desk1, desk1.get_figura(33).unwrap());
+        assert_eq!(position1.get_turn_color(), Color::White);
+        let position2 = position1.make_move(Move {from_cell: 33, to_cell: 42,
+            figura: position1.get_figura(33).unwrap()});
+        assert_eq!(position2.get_turn_color(), Color::Black);
+    }
+    #[test]
+    fn test_is_shah() {
+        let desk1 = Desk::position1();
+        let position1 = Position::new(&desk1, desk1.get_figura(33).unwrap());
+        assert!(!position1.is_shah());
+        let position2 = position1.make_move( Move {from_cell: 34, to_cell: 42,
+            figura: position1.get_figura(34).unwrap()} );
+        assert!(position2.is_shah());
+    }
+}

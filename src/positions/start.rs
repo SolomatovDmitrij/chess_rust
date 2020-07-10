@@ -40,7 +40,8 @@ impl Desk {
             Some(Figura{color: Color::Black, figura: FiguraType::Knight}),
             Some(Figura{color: Color::Black, figura: FiguraType::Rook})
                  ]
-            , additional_figures: vec![]}
+            , additional_figures: vec![], color_move: Color::White
+        }
     }
 /*    
     fn get_cells(&self) -> &[Option<Figura>] {

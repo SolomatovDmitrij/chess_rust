@@ -1,7 +1,7 @@
 mod positions;
 mod functions;
 
-#[derive (PartialEq, Debug, Clone)]
+#[derive (PartialEq, Debug, Clone, Copy)]
 pub enum Color {
     Black,
     White,
@@ -31,6 +31,7 @@ pub struct Figura {
 struct Desk {
     cells: [Option<Figura>; 64],
     additional_figures: Vec<Figura>,
+    color_move: Color,
 }
 
 #[derive (PartialEq, Debug, Clone)]

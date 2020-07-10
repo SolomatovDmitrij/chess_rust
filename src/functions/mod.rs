@@ -4,6 +4,7 @@ mod dependencies;
 mod position;
 mod reference;
 mod diag;
+mod color;
 
 use super::*;
 
